@@ -1,10 +1,10 @@
 
-all: Data.cmi Lexer.cmx Parser.cmx Main.cmx
+all: Data.cmi Lexer.cmx Main.cmx
 	ocamlopt -o charon Lexer.cmx Main.cmx
 
 test: Data.cmi Lexer.cmx Test.cmx
 	ocamlopt -o test Lexer.cmx Test.cmx
-	test
+	./test
 
 Test.cmx:
 	ocamlopt -c Test.ml
