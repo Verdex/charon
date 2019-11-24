@@ -12,6 +12,10 @@ Test.cmx:
 Main.cmx:
 	ocamlopt -c Main.ml
 
+Parser.cmx:
+	ocamlc -c Parser.mli
+	ocamlopt -c Parser.ml
+
 Lexer.cmx:
 	ocamlc -c Lexer.mli
 	ocamlopt -c Lexer.ml
