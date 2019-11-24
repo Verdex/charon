@@ -16,3 +16,6 @@ type token =
     | RightArrow 
     | Equal 
 
+
+type ast = AST
+
