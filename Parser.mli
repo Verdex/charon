@@ -3,5 +3,5 @@ open Data
 
 exception ParseError of string
 
-val parse : [token] -> ast
+val parse : token list -> ast
 
