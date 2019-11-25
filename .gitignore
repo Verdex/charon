@@ -1,6 +1,6 @@
 test
 charon
-.swp
+*.swp
 *.annot
 *.cmo
 *.cma
