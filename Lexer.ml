@@ -25,6 +25,7 @@ let lex_number input =
     ; while input#move_next && is_number_or_dot input#current do
         Buffer.add_char ret input#current
     done
+    ; input#move_back
     ; Number (Buffer.contents ret)
 
 let is_symbol_start c = 
@@ -44,6 +45,7 @@ let lex_symbol input =
     ; while input#move_next && is_symbol input#current do
         Buffer.add_char ret input#current
     done
+    ; input#move_back
     ; Symbol (Buffer.contents ret)
 
 let is_line_comment input = input#current = '/' && input#look_ahead 1 = Some '/'
@@ -94,7 +96,8 @@ let lex_right_arrow input =
 let lex ( input : < current : char
                   ; index : int
                   ; move_next : bool
-                  ; look_ahead : int -> char option > ) =
+                  ; look_ahead : int -> char option 
+                  ; move_back : unit > ) =
 
     let ret = ref [] in
     while input#move_next do
