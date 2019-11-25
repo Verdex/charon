@@ -16,13 +16,12 @@ type token =
     | RightArrow 
     | Equal 
 
-type let_def = LetDef
-type open_def = OpenDef
-
 type mod_def = { name : string
-               ; lets : let_def list
-               ; opens : open_def list
+               ; lets : [ `LetDef ] list
+               ; opens : [ `OpenDef of string ] list
                }
+
 
 type ast = AST
     | Module of mod_def
+    
