@@ -6,12 +6,6 @@ exception ParseError of string
 let (|>) a b = b a 
 
 let expect_open_def tokens = 
-
-    List.map Debug.show_token tokens 
-    |> List.iter (fun x -> Printf.printf "%s\n" x) 
-
-    ;
-
     match tokens with 
     | Symbol n :: SemiColon :: rest -> (`OpenDef n, rest)
     | _ -> raise (ParseError "open def parse failed")
