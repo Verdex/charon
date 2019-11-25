@@ -1,6 +1,7 @@
 
 open Data
 open Lexer
+open Parser
 
 exception TestError of string
 
@@ -15,6 +16,7 @@ let lex_inputer stuff = object
             false
     method current = stuff.[_index]  
     method index = _index
+    method move_back = _index <- _index - 1 ; ()
     method look_ahead a = 
         if _index + a  < String.length stuff then
             Some stuff.[_index + a]
@@ -30,14 +32,25 @@ let basic_input = {|
     }
 |}
 
-let run_basic =
+let run_basic_lex =
     let tokens = lex (lex_inputer basic_input) in
     if (List.length tokens) = 0 then
         raise (TestError "run basic lexer failed")
     ;
     Printf.printf "%d tokens found\n" (List.length tokens)
     
+let run_basic_parse =
+    let tokens = lex (lex_inputer basic_input) in
+    if (List.length tokens) = 0 then
+        raise (TestError "lexer failed in run basic parse")
+    ;
+    let _ = parse tokens in
+    Printf.printf "parse okay" 
+    
 ;;
 
-run_basic
+run_basic_lex
 
+;;
+
+run_basic_parse

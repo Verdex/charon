@@ -1,9 +1,9 @@
 
-all: Data.cmi Lexer.cmx Parser.cmx Main.cmx
-	ocamlopt -o charon Lexer.cmx Main.cmx
+all: Data.cmi Debug.cmx Lexer.cmx Parser.cmx Main.cmx
+	ocamlopt -o charon Debug.cmx Lexer.cmx Main.cmx
 
-test: Data.cmi Lexer.cmx Test.cmx
-	ocamlopt -o test Lexer.cmx Test.cmx
+test: Data.cmi Debug.cmx Lexer.cmx Parser.cmx Test.cmx
+	ocamlopt -o test Debug.cmx Lexer.cmx Parser.cmx Test.cmx
 	./test
 
 Test.cmx:
@@ -19,6 +19,10 @@ Parser.cmx:
 Lexer.cmx:
 	ocamlc -c Lexer.mli
 	ocamlopt -c Lexer.ml
+
+Debug.cmx:
+	ocamlc -c Debug.mli
+	ocamlopt -c Debug.ml
 
 Data.cmi:
 	ocamlopt -c Data.mli
