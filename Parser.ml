@@ -10,7 +10,21 @@ let expect_open_def tokens =
     | Symbol n :: SemiColon :: rest -> (`OpenDef n, rest)
     | _ -> raise (ParseError "open def parse failed")
 
-let expect_let_def tokens = (`LetDef, tokens)
+let expect_param_list tokens = 
+    let rec pl tokens (params : string list) =
+        match tokens with
+        | Symbol n :: rest -> pl rest (n :: params)
+        | Equal :: rest -> (params, rest)
+        | _ -> raise (ParseError "unexpected token in expect param list")
+    in
+    pl tokens []
+
+let expect_let_def tokens = 
+    let (params, p_r) = expect_param_list tokens in 
+    (* zero params is an exception
+       one param is a value assignment
+       multiple params is a function definition
+    *)
 
 let check_module_item tokens =
     match tokens with
